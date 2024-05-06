@@ -5,3 +5,9 @@
  * defined here in the corresponding header file.
  *
  */
+
+void student_print_all_detail(const Student students[], int size) {
+    for (int i = 0; i < size; i++) {
+        printf("%s|%s|%d|%s|%s\n", students[i].id, students[i].name, students[i].year, students[i].gender, students[i].dorm);
+    }
+}

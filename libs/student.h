@@ -21,5 +21,5 @@ struct student_t
 
 struct student_t create_student(char *_id, char *_name, char *_year,
                                 enum gender_t _gender);
-
+void student_print_all_detail(const Student students[], int size);
 #endif
