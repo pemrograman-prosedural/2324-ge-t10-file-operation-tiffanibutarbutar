@@ -1,13 +1,67 @@
-// NIM - Name
-// NIM - Name
+// 12S23010 - Tiffani Rumiris Br Butar - Butar
+// 12S23024 - Eska Natasia Silaen
 
 #include <stdio.h>
-#include "./libs/dorm.h"
-#include "./libs/student.h"
-#include "./libs/repository.h"
+#include <stdlib.h>
+#include <string.h>
+#include "dorm.h"
+#include "student.h"
 
-int main(int _argc, char **_argv)
-{
-    // codes
-    return 0;
+#define MAX_DORMS 100
+#define MAX_STUDENTS 100
+
+int main() {
+    // Membuka file asrama dan mahasiswa untuk dibaca
+    FILE *dorm_file = fopen("./storage/dorm-repository.txt", "r");
+    FILE *student_file = fopen("./storage/student-repository.txt", "r");
+
+    // Memeriksa apakah file berhasil dibuka
+    if (dorm_file == NULL || student_file == NULL) {
+        perror("Error opening file");
+        return EXIT_FAILURE;
+    }
+
+    // Inisialisasi array untuk menyimpan data asrama dan mahasiswa
+    struct dorm_t dorms[MAX_DORMS];
+    struct student_t students[MAX_STUDENTS];
+    int num_dorms = 0;
+    int num_students = 0;
+
+    // Membaca data asrama dari file
+    char line[100];
+    while (fgets(line, sizeof(line), dorm_file)) {
+        // Mengisi array dorms dengan data dari file
+        dorms[num_dorms] = create_dorm_repository(line);
+        num_dorms++;
+    }
+
+    // Mencetak data asrama
+    printf("Dormitories:\n");
+    for (int i = 0; i < num_dorms; i++) {
+        print_dorm(dorms[i]);
+    }
+    printf("\n");
+
+    // Membaca data mahasiswa dari file
+    while (fgets(line, sizeof(line), student_file)) {
+        // Mengisi array students dengan data dari file
+        students[num_students] = create_student_repository(line);
+        num_students++;
+    }
+
+    // Mencetak data mahasiswa
+    printf("Students:\n");
+    for (int i = 0; i < num_students; i++) {
+        print_student(students[i]);
+    }
+    printf("\n");
+
+    // Menutup file setelah selesai membaca
+    fclose(dorm_file);
+    fclose(student_file);
+
+    // Sekarang kita memiliki data awal yang dimuat dari file
+    // Dapat melanjutkan dengan menggunakan data tersebut dalam simulator
+
+    return EXIT_SUCCESS;
 }
